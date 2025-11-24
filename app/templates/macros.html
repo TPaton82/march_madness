@@ -1,0 +1,4 @@
+{# Macro to calculate grid row based on round number and game index #}
+{% macro grid_row(round, index) %}
+    {{ (2 ** round) + ((index - 1) * (4 * (2 ** (round - 1)))) }}
+{% endmacro %}

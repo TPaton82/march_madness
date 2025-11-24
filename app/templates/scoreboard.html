@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<html lang="eng">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/scoreboard.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    </head>
+    <body>        
+        <div class="page-content">
+            <table class="scoreboard">
+
+                <thead>
+                    <tr>
+                        <th>Champion</th>
+                        <th>Name</th>
+                        <th class="gap-col">Score</th>
+                        <th>Max</th>
+                        <th>Correct Picks</th>
+                        <th>Round 1</th>
+                        <th>Round 2</th>
+                        <th>Sweet Sixteen</th>
+                        <th>Elite Eight</th>
+                        <th>Final Four</th>
+                        <th>Championship</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in scoreboard %}
+                        <tr>
+                            <td class="champion-cell">
+                                {% if row.predicted_champion_name %}
+                                    <img src="{{ get_team_logo(row.predicted_champion_name) }}" class="champion-logo">
+                                    ({{ row.predicted_final_score }})
+                                {% endif %}
+                            </td>
+
+                            <td class="user-cell">{{ row.username }}</td>
+
+                            <td class="cur-points-cell gap-col">{{ row.current_points }}</td>
+                            <td>{{ row.max_points }}</td>
+                            <td>{{ row.correct_picks }}</td>
+
+                            {% for r in range(1, 7) %}
+                                <td>{{ row.round_scores[r] }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </body>
+</html>
+{% endblock %}

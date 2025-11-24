@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<html lang="eng">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rules.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    </head>
+    <body>
+        <div class="page-content">
+            <div class="rules-container">
+                <h1>Game Rules</h1>
+
+                <section>
+                    <h2>Scoring</h2>
+                    <ul>
+                        <li>Each correct pick earns points depending on the round:</li>
+                        <ul>
+                            <li>Round 1: <b>1</b> point + seed</li>
+                            <li>Round 2: <b>2</b> points + seed</li>
+                            <li>Round 3: <b>3</b> points + seed</li>
+                            <li>Round 4: <b>4</b> points + seed</li>
+                            <li>Round 5: <b>6</b> points + seed</li>
+                            <li>Round 6: <b>10</b> points + seed</li>
+                        </ul>
+                        <li>Maximum points are calculated based on remaining games and your picks.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Deadline</h2>
+                    <p>
+                        All picks must be submitted **before the first game starts**. After the deadline, no changes are allowed.
+                    </p>
+                </section>
+
+            </div>
+        </div>
+    </body>
+</html>
+{% endblock %}

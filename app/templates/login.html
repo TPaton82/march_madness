@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_register.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <title>March Madness 2026</title>
+    </head>
+    <body>
+        <div class="login">
+            <img src="{{ url_for('static', filename='images/backgrounds/mm_logo.avif') }}" alt="March Madness Logo" class="nav-logo">
+            <div class="links">
+                <a href="{{ url_for('auth.login') }}" class="active">Login</a>
+                <a href="{{ url_for('auth.register') }}">Register</a>
+            </div>
+            <form action="{{ url_for('auth.login') }}" method="post">
+                <label for="name">
+                    <i class="fas fa-user"></i>
+                </label>
+                <input type="text" name="name" placeholder="Name" id="name" required>
+                <label for="password">
+                    <i class="fas fa-lock"></i>
+                </label>
+                <input type="password" name="password" placeholder="Password" id="password" required>
+                <div class="msg">{{ msg }}</div>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+        <div>
+            <img src="{{ url_for('static', filename='images/backgrounds/final_four.webp') }}" class="login-logo">
+        </div>
+    </body>
+</html>
