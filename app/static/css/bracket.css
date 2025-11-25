@@ -7,10 +7,15 @@
 }
 
 html, body {
-    min-height: 100vh;
     margin: 0;
     padding: 0;
   	background-color: #0E1F2E;
+    background-image: url('../images/backgrounds/final_four.webp');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-y: auto; /* allow scrolling if content is taller */
+    overflow-x: auto; /* allow scrolling if content is taller */
 }
 
 .bracket {
@@ -21,13 +26,6 @@ html, body {
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 1px;
-  	background-color: #0E1F2E;
-    background-image: url('../images/backgrounds/final_four.webp');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    overflow-y: auto; /* allow scrolling if content is taller */
-    overflow-x: auto; /* allow scrolling if content is taller */
 }
 
 .region-left-0 { grid-column: 1; grid-row: 1; } /* top-left */
