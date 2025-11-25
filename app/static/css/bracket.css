@@ -9,13 +9,18 @@
 html, body {
     margin: 0;
     padding: 0;
+    background: none;
   	background-color: #0E1F2E;
+}
+
+/* Desktop only */
+@media (min-width: 768px) {
+    body {
     background-image: url('../images/backgrounds/final_four.webp');
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    overflow-y: auto; /* allow scrolling if content is taller */
-    overflow-x: auto; /* allow scrolling if content is taller */
+    }
 }
 
 .bracket {
