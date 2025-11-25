@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<html lang="eng">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    </head>
+    <body>     
+        <div class="admin-cards-container">
+            {% for game in games %}
+            <form method="POST" class="game-card">
+                <div class="round">Round {{ game.round }}</div>
+                <div class="teams">
+                    <div class="team">
+                        <img src="{{ get_team_logo(game.team_1_name) }}" class="team-logo">
+                        <div class="team-name">{{ game.team_1_name }}</div>
+                    </div>
+                    <div class="vs">vs</div>
+                    <div class="team">
+                        <img src="{{ get_team_logo(game.team_2_name) }}" class="team-logo">
+                        <div class="team-name">{{ game.team_2_name }}</div>
+                    </div>
+                </div>
+                <div class="winner-select">
+                    <select name="winner_id">
+                        <option value="">--No Winner--</option>
+                        {% if game.team_1_id %}
+                            <option value="{{ game.team_1_id }}" {% if game.winner_id == game.team_1_id %}selected{% endif %}>
+                                {{ game.team_1_name }}
+                            </option>
+                        {% endif %}
+                        {% if game.team_2_id %}
+                            <option value="{{ game.team_2_id }}" {% if game.winner_id == game.team_2_id %}selected{% endif %}>
+                                {{ game.team_2_name }}
+                            </option>
+                        {% endif %}
+                    </select>
+                    <input type="hidden" name="game_id" value="{{ game.game_id }}">
+                </div>
+                <button type="submit">Update</button>
+            </form>
+            {% endfor %}
+        </div>
+    </body>
+</html>
+{% endblock %}

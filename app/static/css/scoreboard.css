@@ -1,0 +1,77 @@
+* {
+  	box-sizing: border-box;
+  	font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+  	font-size: min(calc(1vw + 1vh), 12px);
+  	-webkit-font-smoothing: antialiased;
+  	-moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  	background-color: #0E1F2E;
+}
+
+.page-content {
+    padding-top: 60px;
+}
+
+.scoreboard {
+    width: 100%;
+    border-collapse: separate;
+  	background-color: #0E1F2E;
+    color: white;
+    border-spacing: 0 10px;
+    text-align: center;
+}
+
+.scoreboard thead th {
+    text-align: center;
+    padding: 12px 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.8;
+}
+
+.scoreboard tbody tr {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(4px);
+    border-radius: 8px;
+}
+
+.scoreboard tbody td {
+    padding: 14px 16px;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.scoreboard th.gap-col,
+.scoreboard td.gap-col {
+    border-right: 3px solid #ffffff33; /* subtle white separator */
+    padding-right: 20px; /* push away next columns */
+}
+
+.champion-logo {
+    width: 32px;
+    height: 32px;
+}
+
+.champion-cell {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+}
+
+
+.cur-points-cell {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+
+.user-cell {
+    font-weight: bold;
+    font-size: 1.2rem;
+}

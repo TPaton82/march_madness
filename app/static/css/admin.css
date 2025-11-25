@@ -1,0 +1,109 @@
+* {
+  	box-sizing: border-box;
+  	font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+  	font-size: min(calc(1vw + 1vh), 12px);
+  	-webkit-font-smoothing: antialiased;
+  	-moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: white;
+  	background-color: #0E1F2E;
+    overflow: auto;       /* allow scrolling */
+    scrollbar-width: none; /* Firefox */
+}
+
+.admin-cards-container {
+    padding-top: 80px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.game-card {
+    background-color: #1E2B3A;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.round {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.teams {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+}
+
+.team-name {
+    text-align: center;
+}
+
+.vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.winner-select {
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.winner-select select {
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #0E1F2E;
+    color: white;
+    text-align: center;
+}
+
+.winner-select select:focus {
+    outline: 2px solid #007bff;
+}
+
+.game-card button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.game-card button:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,7 @@
+<div class="score-row">
+    {% if final_score %}
+        <div class="winner-score" contenteditable="true" id="final-score">{{ final_score.value }}</div>
+    {% else %}
+        <div class="winner-score" contenteditable="true" id="final-score"></div>
+    {% endif %}
+</div>

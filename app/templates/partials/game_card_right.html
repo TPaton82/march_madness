@@ -1,0 +1,41 @@
+{% set user_pick = user_picks.get(game.game_id) %}
+
+<div class="team-row right-row" data-team-id="{{ game.team_1_id }}">
+
+    {% if game.team_1_id and user_pick and user_pick[0]|int == game.team_1_id|int %}
+        <div class="circle active"></div>
+    {% else %}
+        <div class="circle"></div>
+    {% endif %}
+
+    {% if game.team_1_id %}
+        <div class="team-name">{{ game.team_1_name }}</div>
+        <div class="team-seed">{{ game.team_1_seed }}</div>
+        <img src="{{ get_team_logo(game.team_1_name) }}" class="team-logo">
+    {% else %}
+        <div class="team-name"></div>
+        <div class="team-seed"></div>
+        <div class="team-logo"></div>
+    {% endif %}
+</div>
+
+<div class="divider"></div>
+
+<div class="team-row right-row" data-team-id="{{ game.team_2_id }}">
+
+    {% if game.team_2_id and user_pick and user_pick[0]|int == game.team_2_id|int %}
+        <div class="circle active"></div>
+    {% else %}
+        <div class="circle"></div>
+    {% endif %}
+
+    {% if game.team_2_id %}
+        <div class="team-name">{{ game.team_2_name }}</div>
+        <div class="team-seed">{{ game.team_2_seed }}</div>
+        <img src="{{ get_team_logo(game.team_2_name) }}" class="team-logo">
+    {% else %}
+        <div class="team-name"></div>
+        <div class="team-seed"></div>
+        <div class="team-logo"></div>
+    {% endif %}
+</div>
