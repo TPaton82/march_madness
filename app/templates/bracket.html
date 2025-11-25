@@ -41,11 +41,11 @@
                     <div class="score-card" style="grid-row: 44;">
                         {% include 'partials/score_card.html' %}
                     </div>
-                    <div style="grid-row: 60;">
+                    <div style="grid-row: 58;">
                         <button id="submitPicksBtn" class="submit-picks-button">Save Picks</button>
                         <div id="save-message" class="hidden save_message"></div>
                     </div>
-                    <div style="grid-row: 66;">
+                    <div style="grid-row: 62;">
                         <form action="{{ url_for('bracket.reset_picks') }}" method="POST">
                             <button type="submit", class="submit-picks-button">Clear All</button>
                         </form>

@@ -223,38 +223,54 @@ html, body {
 }
 
 .submit-picks-button {
-    border: 3px solid #FFB71B;
-    color: white;
-    border-radius: 8px;  
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 12px;  
     font-weight: 600;
-    background-color: #FA691D;
     font-size: 1.1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-    transition: transform 0.05s ease, box-shadow 0.05s ease, background 0.1s ease;
+    color: #fff;
+    background: linear-gradient(145deg, #FA691D, #FFB71B);
+    box-shadow: 0 6px 15px rgba(250, 105, 29, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
 }
 
 .submit-picks-button:hover {
-    background: skyblue;
+    background: linear-gradient(145deg, #FFB71B, #FA691D);
+    box-shadow: 0 8px 20px rgba(250, 105, 29, 0.4);
+    transform: translateY(-2px);
 }
 
 .submit-picks-button:active {
-    /* Move the button down a bit */
-    transform: translateY(3px);
-
-    /* Reduce shadow to simulate pressing into the surface */
-    box-shadow: 0 1px 0 #2c6bb0;
-
-    /* Slightly darker background */
-    background: #3c7ac7;
+    transform: translateY(2px);
+    box-shadow: 0 3px 8px rgba(250, 105, 29, 0.2);
 }
 
+/* Optional subtle focus outline for accessibility */
+.submit-picks-button:focus {
+    outline: 2px solid #FFB71B;
+    outline-offset: 3px;
+}
+
+/* --- Hidden state --- */
 .hidden {
     display: none;
 }
 
+/* --- Save message --- */
 .save_message {
-    color: white;
+    color: #FA691D;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 12px;
     font-size: 1rem;
+    font-weight: 500;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* To show message dynamically */
+.save_message.visible {
+    opacity: 1;
 }
