@@ -3,16 +3,21 @@ This repository contains the source code for a **March Madness Website**, a web 
 
 ### Key Files
 - **`main.py`**: The entry point of the application. Defines routes and handles user interactions.
-- **`app/`**: Contains functions for interacting with the MySQL database.
+- **`app/`**: Contains all code for the March Madness app
+    - **`admin/`**: flask routes for Admin page
     - **`auth/`**: flask routes for Login and Register pages
     - **`bracket/`**: flask routes for Bracket page
     - **`extensions/`**: db functions, constants and utils
+    - **`games/`**: flask routes for Games page
+    - **`rules/`**: flask routes for Rules page
+    - **`scoreboard/`**: flask routes for Scoreboard page
     - **`static/`**: css, javascript code and images
     - **`templates/`**: html pages to render
-    - **`app.py`**: creates the app, mounts blueprints e.t.c.
-- **`sql_table_definitions/`**: SQL scripts for creating and managing the database schema.
+    - **`__init__.py`**: creates the app, mounts blueprints e.t.c.
+- **`migrations/`**: Automatically generated scripts to handle any database migrations
 
 ### To Do
+- fix seed script to have correct game ordering
 - Make separate page for analysis
 - Make admin checks better by using LoginManager
 - Add proper times to the games

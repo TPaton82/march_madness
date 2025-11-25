@@ -1,13 +1,7 @@
-from google.cloud import secretmanager
 import os
 import hashlib
 from functools import wraps
 from flask import redirect, url_for, session, current_app
-
-def get_cloud_secret(secret_name):
-    client = secretmanager.SecretManagerServiceClient()
-    response = client.access_secret_version(name=f"projects/168510284961/secrets/{secret_name}/versions/latest")
-    return response.payload.data.decode("UTF-8")
 
 
 def create_secure_password(password, secret_key, hash_algo="sha256", iterations=100000):

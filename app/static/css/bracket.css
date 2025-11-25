@@ -61,51 +61,6 @@ html, body {
     justify-items: center
 }
 
-.game-card {
-    height: 50px;
-    background: #ffffff;
-    border: 3px solid #FA691D;
-    border-radius: 8px;
-    padding: 4px;
-    width: 140px;        /* fits bracket columns */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-    align-content: center;
-}
-
-.championship-card {
-    height: 80px;
-    background: #ffffff;
-    border: 2px solid #FA691D;
-    border-radius: 8px;
-    padding: 12px;
-    width: 160px;        /* fits bracket columns */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-    text-align: center;
-    align-content: center;
-}
-
-.winner-card {
-    height: 50px;
-    background: #ffffff;
-    border: 2px solid #FA691D;
-    border-radius: 8px;
-    padding: 12px;
-    width: 160px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-    text-align: center;
-    align-content: center;
-}
-
-.score-card {
-    height: 40px;
-    background: #ffffff;
-    border: 2px solid #FA691D;
-    border-radius: 8px;
-    padding: 12px;
-    width: 80px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-}
-
 .score-row {
     display: flex;
     justify-content: center;
@@ -123,38 +78,10 @@ html, body {
     outline: none;
 }
 
-.team-row {
-    display: grid;
-    align-items: center;
-    height: 16px;
-    width: 100%;
-    background-color: white;
-}
-
-.left-row {
-    grid-template-columns: 25px 15px 70px 20px; /* circle, name, seed, logo */
-    text-align: left;
-}
-
-.centered-row {
-    grid-template-columns: 25px 15px 70px 20px; /* circle, name, seed, logo */
-    text-align: center;
-}
-
-.right-row {
-    grid-template-columns: 20px 70px 15px 25px; /* circle, name, seed, logo */
-    text-align: right;
-}
-
 .team-row:hover {
     cursor: pointer;
     border-radius: 4px;
     background-color: skyblue;
-}
-
-.team-logo {
-    height: 15px;
-    margin-left: 5px;
 }
 
 .team-name {
@@ -162,47 +89,134 @@ html, body {
     font-size: 0.8rem;
 }
 
-.team-seed {
+.winner-card {
+    background-color: #1E2B3A;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 45px;
+    width: 150px;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+    align-content: center;
+}
+
+.score-card {
+    color: white;
+    background-color: #1E2B3A;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 45px;
+    width: 80px;
+    padding: 12px;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.championship-card {
+    background-color: #1E2B3A;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    width: 150px;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-card {
+    background-color: #1E2B3A;          /* dark card background */
+    border-radius: 8px;                 /* rounded corners */
+    display: flex;
+    flex-direction: column;
+    height: 45px;
+    width: 150px;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);  /* subtle shadow */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect for interactivity */
+.game-card:hover,
+.championship-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+/* Each team row inside the card */
+.team-row {
+    display: flex;
+    height: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/* Circle showing user pick */
+.team-row .circle {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #00BFFF;          /* border color for unselected */
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Active circle when user has picked the team */
+.team-row .circle.active {
+    background-color: #00BFFF;
+}
+
+/* Team logo */
+.team-row .team-logo {
+    height: 15px;
+    object-fit: contain;
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-left: 5px;
+}
+
+/* Team seed */
+.team-row .team-seed {
+    font-weight: bold;
     font-weight: 700;
     font-size: 0.6rem;
-    color: #555555;
+    color: #FFD700;
+    width: 20px;
+    text-align: center;
 }
 
-.circle {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    position: relative;
-    flex-shrink: 0;
-    cursor: pointer;
-    transition: all 0.3s;
-    align-items: center;
+/* Team name centered in remaining space */
+.team-row .team-name {
+    flex-grow: 1;
+    font-weight: 500;
+    color: #ffffff;
 }
 
-.circle::after {
-    content: '✔';
-    color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 12px;
-    opacity: 0;
-    transition: opacity 0.2s;
+.left-row {
+    text-align: left;
 }
 
-.circle.active {
-    background-color: green;
-    border-color: green;
+.centered-row {
+    text-align: center;
 }
 
-.circle.active::after {
-    opacity: 1;
+.right-row {
+    text-align: right;
 }
 
-.divider {
+/* Optional: divider between teams if you have it */
+.game-card .divider,
+.championship-card .divider {
     height: 1px;
-    background: #ddd;
+    background-color: rgba(255,255,255,0.2);
+    margin: 2px 0;
 }
 
 .submit-picks-button {
@@ -216,11 +230,9 @@ html, body {
     transition: transform 0.05s ease, box-shadow 0.05s ease, background 0.1s ease;
 }
 
-
 .submit-picks-button:hover {
     background: skyblue;
 }
-
 
 .submit-picks-button:active {
     /* Move the button down a bit */

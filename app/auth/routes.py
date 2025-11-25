@@ -1,7 +1,8 @@
 import hashlib
 import re
 from flask import Blueprint, render_template, request, redirect, session, current_app
-from app.extensions.db import get_user, create_user
+from app.extensions.models import User
+from app.extensions.db import db
 from app.extensions.utils import create_secure_password, logged_in
 
 auth_bp = Blueprint("auth", __name__)
@@ -10,6 +11,27 @@ auth_bp = Blueprint("auth", __name__)
 @logged_in
 def landing_page():
     return redirect("/bracket")
+
+
+def get_user(name):
+    """Fetch a user by name. Returns None if user does not exist."""
+    user = User.query.filter_by(name=name).first()
+    return user
+
+
+def create_user(name, password_hash, salt, hash_algo, iterations):
+    """Create a new user."""
+    new_user = User(
+        name=name,
+        password_hash=password_hash,
+        salt=salt,
+        hash_algo=hash_algo,
+        iterations=iterations
+    )
+
+    db.session.add(new_user)
+    db.session.commit()
+
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -62,17 +84,17 @@ def login():
         else:
             # Recompute hash from user entered password
             password_hash = hashlib.pbkdf2_hmac(
-                user['hash_algo'],
+                user.hash_algo,
                 password.encode('utf-8') + current_app.secret_key.encode('utf-8'),
-                user['salt'],
-                user['iterations']
+                user.salt,
+                user.iterations
             )
 
             # Compare hashes
-            if password_hash == user['password_hash']:
+            if password_hash == user.password_hash:
                 # Create session data, we can access this data in other routes
                 session['loggedin'] = True
-                session['user_id'] = user['user_id']
+                session['user_id'] = user.user_id
 
                 # Redirect to leaderboard
                 return redirect("/bracket")
