@@ -1,9 +1,6 @@
-# seed.py
-from app import create_app, db
+from app import db
 from app.extensions.models import Team, Game, UserPick
 from datetime import datetime
-
-app = create_app()
 
 # Define teams per region — replace with actual names
 EAST_TEAMS = [
@@ -200,16 +197,3 @@ def seed_future_rounds():
                 db.session.add(new_game)
         db.session.commit()
         print(f"Round {round_number} games seeded.")
-
-
-def main():
-    with app.app_context():
-        clear_existing_tables()
-        teams = seed_teams()
-        seed_round_1(teams)
-        seed_future_rounds()
-        print("Seeding complete.")
-
-
-if __name__ == "__main__":
-    main()
