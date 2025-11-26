@@ -50,9 +50,9 @@ def get_team_logo(team_name):
 def create_users_bracket_data(user_picks, team_names, winners):
     """Create users bracket data"""
     bracket_data = {}
+    lost_teams = set()
     for region in REGIONS:
         rounds = get_bracket_data_for_region(region)
-        lost_teams = set()
 
         for round, games in rounds.items():
             for game in games:
