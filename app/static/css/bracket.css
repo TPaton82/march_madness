@@ -20,10 +20,10 @@ html, body {
 /* Desktop only */
 @media (min-width: 768px) {
     body {
-    background-image: url('../images/backgrounds/final_four.webp');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+        background-image: url('../images/backgrounds/final_four.webp');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
 }
 
@@ -36,9 +36,6 @@ html, body {
     padding-left: 20px;
     padding-right: 20px;
     row-gap: 20px;
-    width: 100vw;         /* full viewport width */
-    height: 100vh;        /* full viewport height */
-    overflow: hidden;
 }
 
 .region-left-0 { grid-column: 1; grid-row: 1; } /* top-left */
