@@ -39,7 +39,11 @@
                                 {% endif %}
                             </td>
 
-                            <td class="user-cell">{{ row.username }}</td>
+                            <td>
+                                <a href="{{ url_for('scoreboard.user_draft_page', name=row.username) }}" class="user-bracket-btn">
+                                    {{ row.username }}
+                                </a>
+                            </td>
 
                             <td class="cur-points-cell gap-col">{{ row.current_points }}</td>
                             <td>{{ row.max_points }}</td>

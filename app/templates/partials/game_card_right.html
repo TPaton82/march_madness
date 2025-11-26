@@ -9,7 +9,7 @@
     {% endif %}
 
     {% if game.team_1_id %}
-        <div class="team-name">{{ game.team_1_name }}</div>
+        <div class="team-name {% if not game.team_1_correct %}lost{% endif %}">{{ game.team_1_name }}</div>
         <div class="team-seed">{{ game.team_1_seed }}</div>
         <img src="{{ get_team_logo(game.team_1_name) }}" class="team-logo">
     {% else %}
@@ -30,7 +30,7 @@
     {% endif %}
 
     {% if game.team_2_id %}
-        <div class="team-name">{{ game.team_2_name }}</div>
+        <div class="team-name {% if not game.team_2_correct %}lost{% endif %}">{{ game.team_2_name }}</div>
         <div class="team-seed">{{ game.team_2_seed }}</div>
         <img src="{{ get_team_logo(game.team_2_name) }}" class="team-logo">
     {% else %}

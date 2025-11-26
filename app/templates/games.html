@@ -25,14 +25,13 @@
                     <div class="team">
                         <div class="team-line">
                             <img src="{{ get_team_logo(game.team_1_name) }}" class="team-logo">
-                            <span class="team-seed">{{ game.team_1_seed }}</span>
                             <span class="team-name">{{ game.team_1_name }}</span>
                         </div>
                         <div class="picker-list">
                             {% if game.team_1_pickers %}
-                                <strong>Picked by:</strong> {{ game.team_1_pickers | join(", ") }}
+                                {{ game.team_1_pickers | join(", ") }}
                             {% else %}
-                                <span class="none-picked">No one picked</span>
+                                <span class="none-picked">No picks</span>
                             {% endif %}
                         </div>
                     </div>
@@ -42,14 +41,13 @@
                     <div class="team">
                         <div class="team-line">
                             <img src="{{ get_team_logo(game.team_2_name) }}" class="team-logo">
-                            <span class="team-seed">{{ game.team_2_seed }}</span>
                             <span class="team-name">{{ game.team_2_name }}</span>
                         </div>
                         <div class="picker-list">
                             {% if game.team_2_pickers %}
-                                <strong>Picked by:</strong> {{ game.team_2_pickers | join(", ") }}
+                                {{ game.team_2_pickers | join(", ") }}
                             {% else %}
-                                <span class="none-picked">No one picked</span>
+                                <span class="none-picked">No picks</span>
                             {% endif %}
                         </div>
                     </div>

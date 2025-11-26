@@ -1,5 +1,6 @@
+from collections import defaultdict
 from app.extensions.db import db
-
+from sqlalchemy.orm import aliased
 
 class User(db.Model):
     __tablename__ = "users"
@@ -67,3 +68,91 @@ class Team(db.Model):
             "seed": self.seed,
             "region": self.region,
         }
+    
+
+def get_bracket_data_for_region(region):
+    """Fetch all bracket data"""
+    team_1 = aliased(Team)
+    team_2 = aliased(Team)
+
+    bracket_data = (
+        db.session.query(
+            Game.game_id,
+            Game.round,
+            Game.source_game_1,
+            Game.source_game_2,
+            Game.team_1_id,
+            Game.team_2_id,
+            team_1.name.label("team_1_name"),
+            team_1.seed.label("team_1_seed"),
+            team_2.name.label("team_2_name"),
+            team_2.seed.label("team_2_seed"),
+            Game.winner_id,
+            Game.region,
+            Game.game_time,
+        )
+        .outerjoin(team_1, Game.team_1_id == team_1.team_id)
+        .outerjoin(team_2, Game.team_2_id == team_2.team_id)
+        .filter(Game.region == region)
+        .order_by(Game.round, Game.round_order)
+    ).all()
+
+    # # Group games by round for easier rendering in the template
+    rounds = defaultdict(list)
+
+    for game in bracket_data:
+        rounds[game.round].append(dict(game._mapping))
+
+    return rounds
+
+def get_user_picks(user_id: int):
+    """Getch user picks."""
+
+    raw_picks = (
+        db.session.query(
+            UserPick.game_id,
+            UserPick.predicted_winner_id,
+            Team.seed
+        )
+        .join(Team, UserPick.predicted_winner_id == Team.team_id)
+        .filter(UserPick.user_id == user_id)
+    ).all()
+    
+    user_picks = {pick.game_id: (pick.predicted_winner_id, pick.seed) for pick in raw_picks}
+
+    return user_picks
+
+
+def get_user_winner_pick(user_id):
+    """get user winner pick"""
+    user = db.session.get(User, user_id)
+    team = db.session.get(Team, user.winner_id)
+
+    if team is None:
+        return None
+
+    return {
+        "team_id": team.team_id,
+        "seed": team.seed,
+        "name": team.name
+    }
+
+
+def get_user_final_score(user_id):
+    """get user final score"""
+    user = db.session.get(User, user_id)
+    return {"value": user.final_score}
+
+
+def get_team_names():
+    """Fetch all team names"""
+    raw_teams = Team.query.all()
+    teams = {team.team_id: team.name for team in raw_teams}
+    return teams
+
+
+def get_game_winners():
+    """Fetch all winning teams"""
+    raw_games = Game.query.all()
+    teams = {game.game_id: game.winner_id for game in raw_games}
+    return teams

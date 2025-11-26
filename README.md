@@ -17,10 +17,9 @@ This repository contains the source code for a **March Madness Website**, a web 
 - **`migrations/`**: Automatically generated scripts to handle any database migrations
 
 ### To Do
-- fix seed script to have correct game ordering
-- Make separate page for analysis
-- Make admin checks better by using LoginManager
-- Add proper times to the games
-- click on user name to see their bracket
 - make bracket update to show current state of games
 - Make the winner and the championship game text stand out
+- Lock bracket picks after certain time
+- Add proper times to the games
+- Make separate page for analysis
+- Make admin checks better by using LoginManager

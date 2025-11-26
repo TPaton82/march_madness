@@ -4,7 +4,7 @@
     {% if game.team_1_id %}
         <img src="{{ get_team_logo(game.team_1_name) }}" class="team-logo">
         <div class="team-seed">{{ game.team_1_seed }}</div>
-        <div class="team-name">{{ game.team_1_name }}</div>
+        <div class="team-name {% if not game.team_1_correct %}lost{% endif %}">{{ game.team_1_name }}</div>
     {% else %}
         <div class="team-logo"></div>
         <div class="team-seed"></div>
@@ -24,7 +24,7 @@
     {% if game.team_2_id %}
         <img src="{{ get_team_logo(game.team_2_name) }}" class="team-logo">
         <div class="team-seed">{{ game.team_2_seed }}</div>
-        <div class="team-name">{{ game.team_2_name }}</div>
+        <div class="team-name {% if not game.team_2_correct %}lost{% endif %}">{{ game.team_2_name }}</div>
     {% else %}
         <div class="team-logo"></div>
         <div class="team-seed"></div>

@@ -12,7 +12,7 @@
         <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     </head>
     <body>        
-        <div class="bracket">
+        <div class="bracket {% if not can_edit %}disabled{% endif %}">
             
             <div class="area final-four">
                 <div class="final-four-round" id="final-four-left">
@@ -41,15 +41,17 @@
                     <div class="score-card" style="grid-row: 44;">
                         {% include 'partials/score_card.html' %}
                     </div>
-                    <div style="grid-row: 58;">
-                        <button id="submitPicksBtn" class="submit-picks-button">Save Picks</button>
-                        <div id="save-message" class="hidden save_message"></div>
-                    </div>
-                    <div style="grid-row: 62;">
-                        <form action="{{ url_for('bracket.reset_picks') }}" method="POST">
-                            <button type="submit", class="submit-picks-button">Clear All</button>
-                        </form>
-                    </div>
+                    {% if can_edit %}
+                        <div style="grid-row: 58;">
+                            <button id="submitPicksBtn" class="submit-picks-button">Save Picks</button>
+                            <div id="save-message" class="hidden save_message"></div>
+                        </div>
+                        <div style="grid-row: 62;">
+                            <form action="{{ url_for('bracket.reset_picks') }}" method="POST">
+                                <button type="submit", class="submit-picks-button">Clear All</button>
+                            </form>
+                        </div>
+                    {% endif %}
                 </div>
 
                 <div class="final-four-round" id="final-four-right">
@@ -112,7 +114,9 @@
             </div>
 
         </div>
-        <script src="{{ url_for('static', filename='js/bracket.js') }}"></script>
+        {% if can_edit %}
+            <script src="{{ url_for('static', filename='js/bracket.js') }}"></script>
+        {% endif %}
     </body>
 </html>
 {% endblock %}

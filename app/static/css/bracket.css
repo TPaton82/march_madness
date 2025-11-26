@@ -13,6 +13,10 @@ html, body {
   	background-color: #0E1F2E;
 }
 
+.disabled {
+    pointer-events: none;
+}
+
 /* Desktop only */
 @media (min-width: 768px) {
     body {
@@ -28,9 +32,13 @@ html, body {
     grid-template-columns: 4fr 1fr 4fr;
     grid-template-rows: auto;
     padding-top: 50px;
+    padding-bottom: 50px;
     padding-left: 20px;
     padding-right: 20px;
     row-gap: 20px;
+    width: 100vw;         /* full viewport width */
+    height: 100vh;        /* full viewport height */
+    overflow: hidden;
 }
 
 .region-left-0 { grid-column: 1; grid-row: 1; } /* top-left */
@@ -85,11 +93,6 @@ html, body {
     cursor: pointer;
     border-radius: 4px;
     background-color: skyblue;
-}
-
-.team-name {
-    font-weight: 600;
-    font-size: 0.8rem;
 }
 
 .winner-card {
@@ -199,7 +202,13 @@ html, body {
 .team-row .team-name {
     flex-grow: 1;
     font-weight: 500;
+    font-size: 0.8rem;
     color: #ffffff;
+}
+
+.team-row .lost {
+    color: red;
+    text-decoration: line-through;
 }
 
 .left-row {
