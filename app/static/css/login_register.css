@@ -101,6 +101,8 @@ body {
 }
 
 .login-logo {
+    display: block;
+    margin: 0 auto; /* centers block-level element horizontally */
     height: 400px; /* adjust to whatever size you want */
     width: auto;  /* keeps proportions */
 }
