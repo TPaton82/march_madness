@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bracket.css') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
     <head>
-        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.2, maximum-scale=5, user-scalable=yes">
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     </head>
     <body>        
         <div class="bracket">
@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="area region-left-0">
+            <div class="area region-left-0 region-box">
                 {% for round_number, games in south.items() %}
                     <div class="round" id="south-round-{{ round_number }}">
                         {% for game in games %}
@@ -75,7 +75,7 @@
                 {% endfor %}
             </div>
             
-            <div class="area region-left-1">
+            <div class="area region-left-1 region-box">
                 {% for round_number, games in west.items() %}
                     <div class="round" id="west-round-{{ round_number }}">
                         {% for game in games %}
@@ -87,7 +87,7 @@
                 {% endfor %}
             </div>
 
-            <div class="area region-right-0">
+            <div class="area region-right-0 region-box">
                 {% for round_number, games in east.items()|reverse %}
                     <div class="round" id="east-round-{{ round_number }}">
                         {% for game in games %}
@@ -99,7 +99,7 @@
                 {% endfor %}
             </div>
 
-            <div class="area region-right-1">
+            <div class="area region-right-1 region-box">
                 {% for round_number, games in midwest.items()|reverse %}
                     <div class="round" id="midwest-round-{{ round_number }}">
                         {% for game in games %}
