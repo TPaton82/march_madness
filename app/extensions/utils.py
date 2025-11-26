@@ -5,29 +5,26 @@ from flask import redirect, url_for, session, current_app
 from app.extensions.constants import REGIONS
 from app.extensions.models import get_bracket_data_for_region
 
+
 def create_secure_password(password, secret_key, hash_algo="sha256", iterations=100000):
     salt = os.urandom(16)
 
-    hash_value = hashlib.pbkdf2_hmac(
-        hash_algo,
-        password.encode('utf-8') + secret_key.encode('utf-8'),
-        salt,
-        iterations
-    )
+    hash_value = hashlib.pbkdf2_hmac(hash_algo, password.encode("utf-8") + secret_key.encode("utf-8"), salt, iterations)
 
     password_hash = salt + hash_value
 
     return password_hash[:16], password_hash[16:], hash_algo, iterations
 
+
 def logged_in(func):
     @wraps(func)
     def check_logged_in(*args, **kwargs):
         # Only show the page if user is logged in
-        if 'loggedin' in session:
+        if "loggedin" in session:
             return func(*args, **kwargs)
 
         # User is not loggedin so redirect to login page
-        return redirect('/login')
+        return redirect("/login")
 
     return check_logged_in
 
@@ -45,7 +42,7 @@ def get_team_logo(team_name):
 
     else:
         return url_for("static", filename="images/team_logos/placeholder.png")
-    
+
 
 def create_users_bracket_data(user_picks, team_names, winners):
     """Create users bracket data"""
@@ -68,7 +65,7 @@ def create_users_bracket_data(user_picks, team_names, winners):
                 # Determine per-team correctness
                 game["team_1_correct"] = True
                 game["team_2_correct"] = True
-                
+
                 # If we're not in round 1, we need to insert the team names
                 if round != 1:
                     user_pick_1 = user_picks.get(game["source_game_1"])

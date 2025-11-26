@@ -1,6 +1,7 @@
 from collections import defaultdict
 from flask import Blueprint, render_template, session
 from sqlalchemy.orm import aliased
+from sqlalchemy import func
 
 from app.extensions.models import (
     Game,
@@ -35,7 +36,7 @@ def get_all_users():
 
 def get_user_id_from_name(user_name):
     """Fetch team name from the id"""
-    user = User.query.filter_by(name=user_name.lower()).first()
+    user = User.query.filter(func.lower(User.name) == user_name.lower()).first()
     return user.user_id if user else None
 
 

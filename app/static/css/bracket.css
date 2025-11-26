@@ -208,6 +208,11 @@ html, body {
     text-decoration: line-through;
 }
 
+.team-row .correct {
+    color: green;
+    font-weight: bold;
+}
+
 .left-row {
     text-align: left;
 }

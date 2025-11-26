@@ -17,7 +17,7 @@ This repository contains the source code for a **March Madness Website**, a web 
 - **`migrations/`**: Automatically generated scripts to handle any database migrations
 
 ### To Do
-- make bracket update to show current state of games - almost there, need propagating to final 4 and also green names for winners
+- make bracket update to show green names for winners
 - Make the winner and the championship game text stand out
 - Lock bracket picks after certain time
 - Add proper times to the games
