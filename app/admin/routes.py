@@ -11,7 +11,23 @@ admin_bp = Blueprint("admin", __name__)
 def update_game_winner(game_id, winner_id):
     """Update winner for a given game"""
     game = db.session.get(Game, game_id)
+
+    # 1. Update the winner
     game.winner_id = winner_id
+
+    # 2. Find child games where this game feeds into
+    child_games = Game.query.filter(
+        (Game.source_game_1 == game_id) | (Game.source_game_2 == game_id)
+    ).all()
+
+    # 3. Update the correct team slot in each child game
+    for child in child_games:
+        if child.source_game_1 == int(game_id):
+            child.team_1_id = winner_id
+
+        if child.source_game_2 == int(game_id):
+            child.team_2_id = winner_id
+
     db.session.commit()
 
 

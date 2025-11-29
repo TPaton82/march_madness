@@ -41,7 +41,7 @@ def get_team_logo(team_name):
         return url_for("static", filename=f"images/team_logos/{team_name}.png")
 
     else:
-        return url_for("static", filename="images/team_logos/placeholder.png")
+        return url_for("static", filename="images/team_logos/placeholder.svg")
 
 
 def create_users_bracket_data(user_picks, team_names, winners):
