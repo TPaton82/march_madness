@@ -24,6 +24,7 @@ def create_user(name, password_hash, salt, hash_algo, iterations):
     new_user = User(
         name=name,
         password_hash=password_hash,
+        final_score=0,
         salt=salt,
         hash_algo=hash_algo,
         iterations=iterations
@@ -95,9 +96,10 @@ def login():
                 # Create session data, we can access this data in other routes
                 session['loggedin'] = True
                 session['user_id'] = user.user_id
+                session['user_name'] = user.name
 
                 # Redirect to leaderboard
-                return redirect("/bracket")
+                return redirect("/scoreboard")
             else:
                 msg = 'Incorrect Name / Password!'
 

@@ -1,6 +1,6 @@
 * {
   	box-sizing: border-box;
-  	font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+  	font-family: "Oswald", sans-serif;
   	font-size: min(calc(1vw + 1vh), 12px);
   	-webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
@@ -27,7 +27,6 @@ html, body {
     border-radius: 10px;
     color: #ffffff;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    font-family: Arial, sans-serif;
 }
 
 .rules-container h1 {

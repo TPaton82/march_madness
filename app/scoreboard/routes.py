@@ -168,7 +168,7 @@ def scoreboard():
 def user_draft_page(name):
     # do DB lookup using name
     """Create bracket page for given user"""
-    current_user_id = session["user_id"]
+    current_user_name = session["user_name"]
     user_id = get_user_id_from_name(name)
     user_picks = get_user_picks(user_id)
     winner = get_user_winner_pick(user_id)
@@ -177,7 +177,7 @@ def user_draft_page(name):
     winners = get_game_winners()
     bracket_data = create_users_bracket_data(user_picks, team_names, winners)
 
-    can_edit = (current_user_id == name)
+    can_edit = (current_user_name.lower() == name.lower())
 
     return render_template(
         "bracket.html",

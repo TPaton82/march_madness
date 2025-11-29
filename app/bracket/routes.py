@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from flask import Blueprint, render_template, request, session, url_for, redirect, jsonify
 from app.extensions.models import (
     UserPick,
@@ -11,6 +13,7 @@ from app.extensions.models import (
 )
 from app.extensions.utils import logged_in, get_team_logo, create_users_bracket_data
 from app.extensions.db import db
+from app.extensions.constants import LOCK_TIME
 
 bracket_bp = Blueprint("bracket", __name__)
 
@@ -26,6 +29,7 @@ def bracket():
     team_names = get_team_names()
     winners = get_game_winners()
     bracket_data = create_users_bracket_data(user_picks, team_names, winners)
+    can_edit = datetime.now(timezone.utc) <= LOCK_TIME
 
     return render_template(
         "bracket.html",
@@ -34,7 +38,7 @@ def bracket():
         final_score=final_score,
         user_picks=user_picks,
         get_team_logo=get_team_logo,
-        can_edit=True
+        can_edit=can_edit
     )
 
 
@@ -73,6 +77,10 @@ def add_user_final_score(user_id, score):
 @bracket_bp.route("/submit-picks", methods=["POST"])
 def submit_picks():
     """Submit user picks."""
+
+    if datetime.now(timezone.utc) >= LOCK_TIME:
+        jsonify({"success": False, "message": "Picks are locked!"})
+
     user_id = session["user_id"]
     data = request.get_json()
     user_picks = data.get("user_picks", [])
@@ -87,10 +95,10 @@ def submit_picks():
     if final_score:
         try:
             final_score = int(final_score)
+            add_user_final_score(user_id, final_score)
         except ValueError:
-            return jsonify({"success": False, "message": "Final score must be a number"})
+            pass
 
-        add_user_final_score(user_id, final_score)
 
     return jsonify({"success": True, "message": "Picks saved!"})
 
@@ -104,6 +112,10 @@ def reset_user_picks(user_id):
 @bracket_bp.route("/reset-picks", methods=["POST"])
 def reset_picks():
     """Reset user picks."""
+
+    if datetime.now(timezone.utc) >= LOCK_TIME:
+        return {"error": "Picks are locked"}, 403
+    
     user_id = session["user_id"]
     reset_user_picks(user_id)
     return redirect(url_for("bracket.bracket"))

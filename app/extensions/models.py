@@ -2,13 +2,14 @@ from collections import defaultdict
 from app.extensions.db import db
 from sqlalchemy.orm import aliased
 
+
 class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     winner_id = db.Column(db.Integer)
-    final_score = db.Column(db.Integer)
+    final_score = db.Column(db.Integer, nullable=False)
     password_hash = db.Column(db.LargeBinary(32))
     salt = db.Column(db.LargeBinary(16))
     hash_algo = db.Column(db.String(10), nullable=False)
@@ -55,7 +56,7 @@ class Game(db.Model):
 
 class Team(db.Model):
     __tablename__ = "teams"
-    
+
     team_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     seed = db.Column(db.Integer, nullable=False)
@@ -68,7 +69,7 @@ class Team(db.Model):
             "seed": self.seed,
             "region": self.region,
         }
-    
+
 
 def get_bracket_data_for_region(region):
     """Fetch all bracket data"""
@@ -105,19 +106,16 @@ def get_bracket_data_for_region(region):
 
     return rounds
 
+
 def get_user_picks(user_id: int):
     """Getch user picks."""
 
     raw_picks = (
-        db.session.query(
-            UserPick.game_id,
-            UserPick.predicted_winner_id,
-            Team.seed
-        )
+        db.session.query(UserPick.game_id, UserPick.predicted_winner_id, Team.seed)
         .join(Team, UserPick.predicted_winner_id == Team.team_id)
         .filter(UserPick.user_id == user_id)
     ).all()
-    
+
     user_picks = {pick.game_id: (pick.predicted_winner_id, pick.seed) for pick in raw_picks}
 
     return user_picks
@@ -131,11 +129,7 @@ def get_user_winner_pick(user_id):
     if team is None:
         return None
 
-    return {
-        "team_id": team.team_id,
-        "seed": team.seed,
-        "name": team.name
-    }
+    return {"team_id": team.team_id, "seed": team.seed, "name": team.name}
 
 
 def get_user_final_score(user_id):

@@ -204,7 +204,7 @@ function AddSubmitPicksButtonListner() {
             if (data.success) {
                 showMessage("save-message", data.message);
             } else {
-                showMessage("save-message", data.get(message, "Error saving picks"), 5000);
+                showMessage("save-message", data.message, 5000);
             }
         });
     });
@@ -226,6 +226,7 @@ function showMessage(elementId, text, duration = 2000) {
         msg.classList.add("hidden");
     }, duration);
 }
+
 
 addGameCardListeners();
 AddSubmitPicksButtonListner();

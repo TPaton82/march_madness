@@ -1,6 +1,6 @@
 * {
   	box-sizing: border-box;
-  	font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+  	font-family: "Oswald", sans-serif;
   	font-size: min(calc(1vw + 1vh), 16px);
   	-webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;

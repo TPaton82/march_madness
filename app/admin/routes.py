@@ -42,9 +42,9 @@ def get_all_games():
 @admin_bp.route('/admin', methods=['GET', 'POST'])
 @logged_in
 def admin():
-    user_id = session["user_id"]
+    user_name = session["user_name"]
 
-    if user_id != 1:
+    if user_name.lower() != "tom":
         abort(403)
     
     if request.method == "POST":

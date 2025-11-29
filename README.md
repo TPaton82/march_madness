@@ -18,8 +18,6 @@ This repository contains the source code for a **March Madness Website**, a web 
 
 ### To Do
 - make bracket update to show green names for correct winners
-- Make the winner and the championship game text stand out
-- Lock bracket picks after certain time
 - Add proper times to the games
 - Make separate page for analysis
-- Make admin checks better by using LoginManager
+- Integrate live scores / results using API
