@@ -29,23 +29,24 @@ html, body {
 
 .bracket {
     display: grid;
+    grid-template-columns: 4fr 1fr 4fr;
+    grid-template-rows: auto;
     padding-top: 50px;
     padding-bottom: 50px;
     padding-left: 20px;
     padding-right: 20px;
-    row-gap: 90px;
+    row-gap: 20px;
 }
 
 .region-left-0 { grid-column: 1; grid-row: 1; } /* top-left */
-.region-left-1 { grid-column: 1; grid-row: 3; } /* bottom-left */
+.region-left-1 { grid-column: 1; grid-row: 2; } /* bottom-left */
 .region-right-0 { grid-column: 3; grid-row: 1; } /* top-right */
-.region-right-1 { grid-column: 3; grid-row: 3; } /* bottom-right */
+.region-right-1 { grid-column: 3; grid-row: 2; } /* bottom-right */
 
 /* Final Four sits in middle and spans the full height */
 .final-four {
     grid-column: 2;
-    grid-row: 1 / 4;  /* spans all rows */
-    align-self: center;
+    grid-row: 1 / span 2;
 }
 
 .area {
@@ -55,14 +56,14 @@ html, body {
 
 .round {
     display: grid;
-    grid-template-rows: repeat(32, 30px);
+    grid-template-rows: repeat(32, 13px);
     padding-right: 5px;
     padding-left: 5px;
 }
 
 .final-four-round {
     display: grid;
-    grid-template-rows: repeat(64, 18px);
+    grid-template-rows: repeat(64, 13px);
     padding-right: 5px;
     padding-left: 5px;
     justify-items: center
@@ -124,7 +125,7 @@ html, body {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    height: 120px;
+    height: 80px;
     width: 150px;
     justify-content: center;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -136,9 +137,9 @@ html, body {
     border-radius: 8px;                 /* rounded corners */
     display: flex;
     flex-direction: column;
-    height: 90px;
+    height: 45px;
     width: 150px;
-    justify-content: space-evenly;
+    justify-content: center;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);  /* subtle shadow */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -167,7 +168,6 @@ html, body {
     border: 2px solid #00BFFF;          /* border color for unselected */
     border-radius: 50%;
     flex-shrink: 0;
-    margin: 1px;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -213,18 +213,14 @@ html, body {
     font-size: 1.4rem;
 }
 
-.team-name.correct {
-    color: #10b981;
-}
-
-.team-name.incorrect {
-    color: #ef4444;
+.team-row .lost {
+    color: red;
     text-decoration: line-through;
 }
 
-.team-name.corrected {
-    color: #9ca3af;
-    font-style: italic;
+.team-row .correct {
+    color: green;
+    font-weight: bold;
 }
 
 .left-row {

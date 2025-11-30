@@ -11,8 +11,7 @@ from app.extensions.models import (
     get_user_picks,
     get_user_winner_pick,
     get_user_final_score,
-    get_team_names,
-    get_game_winners
+    get_team_names
 )
 from app.extensions.utils import logged_in, get_team_logo, create_users_bracket_data
 from app.extensions.db import db
@@ -72,6 +71,8 @@ def get_all_games():
         db.session.query(
             Game.game_id,
             Game.round,
+            Game.source_game_1,
+            Game.source_game_2,
             Game.team_1_id,
             team_1.name.label("team_1_name"),
             Game.team_2_id,
@@ -85,6 +86,78 @@ def get_all_games():
     )
 
     return games
+
+
+def build_team_alive_set(games):
+    """Build set of teams that are still alive"""
+    alive = set()
+
+    for game in games:
+        # Add any team that appears in actual data as a still-valid winning path
+        for team in (game.team_1_id, game.team_2_id):
+            if team:
+                alive.add(team)
+
+    # Remove eliminated teams
+    for game in games:
+        # if the game has a real winner, the losing team is eliminated
+        if game.winner_id:
+            loser = game.team_1_id if game.team_2_id == game.winner_id else game.team_2_id
+            alive.discard(loser)
+
+    return alive
+
+
+def can_team_reach_game(team_id, game_id, games_by_id):
+    """Check whether a given team can reach a given game"""
+    game = games_by_id[game_id]
+
+    # Base case: first round
+    if not game.source_game_1 and not game.source_game_2:
+        return True
+
+    for source_game in [game.source_game_1, game.source_game_2]:
+        if source_game is None:
+            continue
+
+        parent_game = games_by_id[source_game]
+
+        # Parent game resolved already
+        if parent_game.winner_id:
+            if parent_game.winner_id != team_id:
+                return False
+        else:
+            # Parent unresolved → still possible
+            continue
+
+    return True
+
+
+def calculate_maximum_points(user_picks, all_games):
+    games_by_id = {g.game_id: g for g in all_games}
+    alive_teams = build_team_alive_set(all_games)
+
+    maximum_points = 0
+
+    for g in all_games:
+        predicted_team, predicted_seed = user_picks.get(g.game_id, (None, None))
+
+        if not predicted_team:
+            continue
+
+        # Already resolved → max points impossible here
+        if g.winner_id is not None:
+            continue
+
+        # Team already eliminated
+        if predicted_team not in alive_teams:
+            continue
+
+        # Can this team still *logically* reach this game?
+        if can_team_reach_game(predicted_team, g.game_id, games_by_id):
+            maximum_points += ROUND_POINTS[g.round] + predicted_seed
+
+    return maximum_points
 
 
 def calculate_scoreboard():
@@ -126,25 +199,13 @@ def calculate_scoreboard():
 
         # 2: Calculate maximum possible remaining points
         all_games = get_all_games()
-
-        for game in all_games:
-            game_id = game.game_id
-            round = game.round
-            predicted_pick, predicted_seed = user_picks.get(game_id, (None, None))
-
-            # Already scored
-            if game.winner_id is not None:
-                continue
-
-            # If predicted team still alive, add points
-            if predicted_pick and predicted_pick in [game.team_1_id, game.team_2_id]:
-                maximum_points += ROUND_POINTS[round] + predicted_seed
+        maximum_points = calculate_maximum_points(user_picks, all_games)
 
         scoreboard.append(
             {
                 "username": user_name.title(),
                 "current_points": current_points,
-                "max_points": current_points + maximum_points,
+                "max_points": maximum_points,
                 "correct_picks": total_correct,
                 "round_scores": user_round_scores,
                 **user_data["winner_data"],
@@ -174,10 +235,9 @@ def user_draft_page(name):
     winner = get_user_winner_pick(user_id)
     final_score = get_user_final_score(user_id)
     team_names = get_team_names()
-    winners = get_game_winners()
-    bracket_data = create_users_bracket_data(user_picks, team_names, winners)
+    bracket_data = create_users_bracket_data(user_picks, team_names)
 
-    can_edit = (current_user_name.lower() == name.lower())
+    can_edit = current_user_name.lower() == name.lower()
 
     return render_template(
         "bracket.html",

@@ -9,7 +9,15 @@
     {% endif %}
 
     {% if game.team_1_id %}
-        <div class="team-name {% if not game.team_1_correct %}lost{% endif %}">{{ game.team_1_name }}</div>
+
+        {# Name with correct/incorrect styling #}
+        <div class="team-name 
+            {% if game.team_1_state == 'correct' %} correct 
+            {% elif game.team_1_state == 'incorrect' %} incorrect 
+            {% endif %}">
+            {{ game.team_1_name }}
+        </div>
+
         <div class="team-seed">{{ game.team_1_seed }}</div>
         <img src="{{ get_team_logo(game.team_1_name) }}" class="team-logo">
     {% else %}
@@ -19,7 +27,25 @@
     {% endif %}
 </div>
 
+{# If incorrect, show predicted pick below #}
+{% if game.team_1_state == 'incorrect' %}
+    <div class="team-row right-row">
+        <div class="team-name corrected">{{ game.correct_1_name }}</div>
+        <div class="team-seed">{{ game.correct_1_seed }}</div>
+        <img src="{{ get_team_logo(game.correct_1_name) }}" class="team-logo">
+    </div>
+{% endif %}
+
 <div class="divider"></div>
+
+{# If incorrect, show predicted pick below #}
+{% if game.team_2_state == 'incorrect' %}
+    <div class="team-row right-row">
+        <div class="team-name corrected">{{ game.correct_2_name }}</div>
+        <div class="team-seed">{{ game.correct_2_seed }}</div>
+        <img src="{{ get_team_logo(game.correct_2_name) }}" class="team-logo">
+    </div>
+{% endif %}
 
 <div class="team-row right-row" data-team-id="{{ game.team_2_id }}">
 
@@ -30,7 +56,15 @@
     {% endif %}
 
     {% if game.team_2_id %}
-        <div class="team-name {% if not game.team_2_correct %}lost{% endif %}">{{ game.team_2_name }}</div>
+
+        {# Name with correct/incorrect styling #}
+        <div class="team-name 
+            {% if game.team_2_state == 'correct' %} correct 
+            {% elif game.team_2_state == 'incorrect' %} incorrect 
+            {% endif %}">
+            {{ game.team_2_name }}
+        </div>
+
         <div class="team-seed">{{ game.team_2_seed }}</div>
         <img src="{{ get_team_logo(game.team_2_name) }}" class="team-logo">
     {% else %}

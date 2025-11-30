@@ -8,8 +8,7 @@ from app.extensions.models import (
     get_user_picks,
     get_user_winner_pick,
     get_user_final_score,
-    get_team_names,
-    get_game_winners
+    get_team_names
 )
 from app.extensions.utils import logged_in, get_team_logo, create_users_bracket_data
 from app.extensions.db import db
@@ -27,8 +26,7 @@ def bracket():
     winner = get_user_winner_pick(user_id)
     final_score = get_user_final_score(user_id)
     team_names = get_team_names()
-    winners = get_game_winners()
-    bracket_data = create_users_bracket_data(user_picks, team_names, winners)
+    bracket_data = create_users_bracket_data(user_picks, team_names)
     can_edit = datetime.now(timezone.utc) <= LOCK_TIME
 
     return render_template(

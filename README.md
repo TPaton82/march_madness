@@ -17,9 +17,6 @@ This repository contains the source code for a **March Madness Website**, a web 
 - **`migrations/`**: Automatically generated scripts to handle any database migrations
 
 ### To Do
-- Fix maximum score calculation (needs to compute scores for all games not just round 1)
-- Fix red highlight on bracket page crossing out team in too early a round
-- make bracket update to show green names for correct winners
 - Add proper times to the games
 - Make separate page for analysis
 - Integrate live scores / results using API

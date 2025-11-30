@@ -143,10 +143,3 @@ def get_team_names():
     raw_teams = Team.query.all()
     teams = {team.team_id: team.name for team in raw_teams}
     return teams
-
-
-def get_game_winners():
-    """Fetch all winning teams"""
-    raw_games = Game.query.all()
-    teams = {game.game_id: game.winner_id for game in raw_games}
-    return teams

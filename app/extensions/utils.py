@@ -43,59 +43,56 @@ def get_team_logo(team_name):
     else:
         return url_for("static", filename="images/team_logos/placeholder.svg")
 
+def update_game_state(game, user_pick, source_game_num, team_names):
+    """Update the state of a game"""
+    pick_id, pick_seed = user_pick
+    pick_name = team_names.get(pick_id)
 
-def create_users_bracket_data(user_picks, team_names, winners):
+    # No winner in previous game yet, fill with user picks
+    if game[f"team_{source_game_num}_name"] is None:
+        game[f"team_{source_game_num}_name"] = team_names.get(pick_id)
+        game[f"team_{source_game_num}_seed"] = pick_seed
+        game[f"team_{source_game_num}_id"] = pick_id
+
+    # If the user has picked correctly
+    elif pick_name == game[f"team_{source_game_num}_name"]:
+        game[f"team_{source_game_num}_state"] = "correct"
+
+    # Or the user has picked incorrectly
+    else:
+        game[f"team_{source_game_num}_state"] = "incorrect"
+
+        # Set the current team to the correct team
+        game[f"correct_{source_game_num}_name"] = game[f"team_{source_game_num}_name"]
+        game[f"correct_{source_game_num}_seed"] = game[f"team_{source_game_num}_seed"]
+
+        # Now replace the current team with the user pick
+        game[f"team_{source_game_num}_name"] = pick_name
+        game[f"team_{source_game_num}_seed"] = pick_seed
+        game[f"team_{source_game_num}_id"] = pick_id
+
+    return game
+
+def create_users_bracket_data(user_picks, team_names):
     """Create users bracket data"""
     bracket_data = {}
-    lost_teams = set()
     for region in REGIONS:
         rounds = get_bracket_data_for_region(region)
 
         for round, games in rounds.items():
             for game in games:
                 game_id = game["game_id"]
-                # Insert the users pick and actual winner
-                actual_winner_id = winners.get(game_id)
-                game["actual_winner_id"] = actual_winner_id
 
                 predicted_winner = user_picks.get(game_id)
                 game["predicted_winner_id"] = predicted_winner
 
-                # Determine correctness
-                # Determine per-team correctness
-                game["team_1_correct"] = True
-                game["team_2_correct"] = True
-
-                # If we're not in round 1, we need to insert the team names
+                # If we're not in round 1, we need to calculate the state
                 if round != 1:
                     user_pick_1 = user_picks.get(game["source_game_1"])
-                    if user_pick_1:
-                        winner_1, seed_1 = user_pick_1
-                        game["team_1_name"] = team_names.get(winner_1)
-                        game["team_1_seed"] = seed_1
-                        game["team_1_id"] = winner_1
-
-                        # Mark lost if upstream or incorrect
-                        if winner_1 in lost_teams:
-                            game["team_1_correct"] = False
+                    game = update_game_state(game, user_pick_1, 1, team_names)
 
                     user_pick_2 = user_picks.get(game["source_game_2"])
-                    if user_pick_2:
-                        winner_2, seed_2 = user_pick_2
-                        game["team_2_name"] = team_names.get(winner_2)
-                        game["team_2_seed"] = seed_2
-                        game["team_2_id"] = winner_2
-
-                        if winner_2 in lost_teams:
-                            game["team_2_correct"] = False
-
-                # Mark predicted winner lost if it doesn't match actual winner
-                if predicted_winner and actual_winner_id and predicted_winner[0] != actual_winner_id:
-                    lost_teams.add(predicted_winner[0])
-                    if "team_1_id" in game and game["team_1_id"] == predicted_winner[0]:
-                        game["team_1_correct"] = False
-                    if "team_2_id" in game and game["team_2_id"] == predicted_winner[0]:
-                        game["team_2_correct"] = False
+                    game = update_game_state(game, user_pick_2, 2, team_names)
 
         bracket_data[region.replace(" ", "_").lower()] = rounds
 

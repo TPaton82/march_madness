@@ -43,11 +43,11 @@
                         {% include 'partials/score_card.html' %}
                     </div>
                     {% if can_edit %}
-                        <div style="grid-row: 58;">
+                        <div style="grid-row: 50;">
                             <button id="submitPicksBtn" class="submit-picks-button">Save Picks</button>
                             <div id="save-message" class="hidden save-message"></div>
                         </div>
-                        <div style="grid-row: 63;">
+                        <div style="grid-row: 54;">
                             <form action="{{ url_for('bracket.reset_picks') }}" method="POST">
                                 <button type="submit", class="submit-picks-button">Clear All</button>
                             </form>
