@@ -13,3 +13,5 @@ ROUND_POINTS = {
 }
 
 LOCK_TIME = datetime(2026, 3, 25, 0, 0, 0, tzinfo=timezone.utc)
+
+NCAA_BASE_URL = "https://ncaa-api.henrygd.me"

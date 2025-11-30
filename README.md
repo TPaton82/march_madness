@@ -17,6 +17,7 @@ This repository contains the source code for a **March Madness Website**, a web 
 - **`migrations/`**: Automatically generated scripts to handle any database migrations
 
 ### To Do
+- Make teams go red correctly in latter rounds
 - Add proper times to the games
 - Make separate page for analysis
-- Integrate live scores / results using API
+- Integrate live scores / results & time using API
