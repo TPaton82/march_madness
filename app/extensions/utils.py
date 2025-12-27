@@ -89,10 +89,12 @@ def create_users_bracket_data(user_picks, team_names):
                 # If we're not in round 1, we need to calculate the state
                 if round != 1:
                     user_pick_1 = user_picks.get(game["source_game_1"])
-                    game = update_game_state(game, user_pick_1, 1, team_names)
+                    if user_pick_1:
+                        update_game_state(game, user_pick_1, 1, team_names)
 
                     user_pick_2 = user_picks.get(game["source_game_2"])
-                    game = update_game_state(game, user_pick_2, 2, team_names)
+                    if user_pick_2:
+                        update_game_state(game, user_pick_2, 2, team_names)
 
         bracket_data[region.replace(" ", "_").lower()] = rounds
 
