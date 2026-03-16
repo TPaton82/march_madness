@@ -49,9 +49,12 @@ function getNextRound(currentRound) {
 
 function getNextTeam(round, nextRound, currentGameIndex) {
     
-    // Ensure we move to final four correctly
-    if (round.id.includes('west') && nextRound.id.includes('final-four')) {
-        currentGameIndex += 1
+    // Update game index for two regions at bottom of bracket
+    if (
+      (round.id.includes("south") || round.id.includes("midwest")) &&
+      nextRound.id.includes("final-four")
+    ) {
+      currentGameIndex += 1;
     }
 
     // Ensure we move to championship
