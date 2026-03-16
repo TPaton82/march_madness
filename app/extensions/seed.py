@@ -5,8 +5,8 @@ from datetime import datetime
 # Define teams per region — replace with actual names
 EAST_TEAMS = [
     "Duke",
-    "Uconn",
-    "Michigan St",
+    "UConn",
+    "Michigan St.",
     "Kansas",
     "St. John's",
     "Louisville",
