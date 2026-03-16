@@ -18,6 +18,6 @@ This repository contains the source code for a **March Madness Website**, a web 
 
 ### To Do
 - Make teams go red correctly in latter rounds
-- Add proper times to the games
+- Add correct game times
 - Make separate page for analysis
 - Integrate live scores / results & time using API
