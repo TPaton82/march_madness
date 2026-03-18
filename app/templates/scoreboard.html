@@ -33,21 +33,15 @@
                 <tbody>
                     {% for row in scoreboard %}
                         <tr>
-                            <!-- <td class="champion-cell">
+                            <td class="champion-cell">
                                 {% if row.predicted_champion_name %}
                                     <img src="{{ get_team_logo(row.predicted_champion_name) }}" class="champion-logo">
                                     ({{ row.predicted_final_score }})
                                 {% endif %}
-                            </td> -->
-
-                            <!-- <td>
-                                <a href="{{ url_for('scoreboard.user_draft_page', name=row.username) }}" class="user-bracket-btn">
-                                    {{ row.username }}
-                                </a>
-                            </td> -->
+                            </td>
 
                             <td>
-                                <a>
+                                <a href="{{ url_for('scoreboard.user_draft_page', name=row.username) }}" class="user-bracket-btn">
                                     {{ row.username }}
                                 </a>
                             </td>
