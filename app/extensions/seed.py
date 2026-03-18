@@ -171,9 +171,9 @@ def seed_future_rounds():
                 region_games = [g for g in prev_games if g.region == region]
             elif round_number == 5:
                 if region == "Final Four Left":
-                    region_games = [g for g in prev_games if g.region in ["South", "West"]] 
+                    region_games = [g for g in prev_games if g.region in ["South", "East"]] 
                 if region == "Final Four Right":
-                    region_games = [g for g in prev_games if g.region in ["Midwest", "East"]]
+                    region_games = [g for g in prev_games if g.region in ["Midwest", "West"]]
             else:
                 region_games = prev_games
 
