@@ -133,7 +133,7 @@ def can_team_reach_game(team_id, game_id, games_by_id):
     return True
 
 
-def calculate_maximum_points(user_picks, all_games):
+def calculate_maximum_remaining_points(user_picks, all_games):
     games_by_id = {g.game_id: g for g in all_games}
     alive_teams = build_team_alive_set(all_games)
 
@@ -145,12 +145,8 @@ def calculate_maximum_points(user_picks, all_games):
         if not predicted_team:
             continue
 
-        # Already resolved, add points if predicted correctly
-        if g.winner_id is not None and g.winner_id == predicted_team:
-            maximum_points += ROUND_POINTS[g.round] + predicted_seed
-
-        # Team already eliminated
-        if predicted_team not in alive_teams:
+        # Already resolved or team eliminated, skip
+        if g.winner_id is not None or predicted_team not in alive_teams:
             continue
 
         # Can this team still *logically* reach this game?
@@ -199,13 +195,13 @@ def calculate_scoreboard():
 
         # 2: Calculate maximum possible remaining points
         all_games = get_all_games()
-        maximum_points = calculate_maximum_points(user_picks, all_games)
+        maximum_remaining_points = calculate_maximum_remaining_points(user_picks, all_games)
 
         scoreboard.append(
             {
                 "username": user_name.title(),
                 "current_points": current_points,
-                "max_points": maximum_points,
+                "max_points": maximum_remaining_points + current_points,
                 "correct_picks": total_correct,
                 "round_scores": user_round_scores,
                 **user_data["winner_data"],
