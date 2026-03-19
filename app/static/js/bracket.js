@@ -175,8 +175,9 @@ function AddSubmitPicksButtonListner() {
                 
                 // We also need to get the state of the winner which doesn't have a circle.
                 // Do this first to avoid searching for circle which doesn't exist
-                if (game.closest("#winner")) {
+                if (game.id == "winner") {
                     const winnerName = team.querySelector(".team-name").textContent
+                    console.log("Winner name:", winnerName);
                     if (winnerName != "") {
                         winnerPick = winnerName
                     }
