@@ -179,7 +179,7 @@ function AddSubmitPicksButtonListner() {
                     const winnerName = team.querySelector(".team-name").textContent
                     console.log("Winner name:", winnerName);
                     if (winnerName != "") {
-                        winnerPick = winnerName
+                        winnerPick = winnerName;
                     }
                 }
                 else {
