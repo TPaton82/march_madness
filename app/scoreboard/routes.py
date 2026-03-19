@@ -145,9 +145,9 @@ def calculate_maximum_points(user_picks, all_games):
         if not predicted_team:
             continue
 
-        # Already resolved → max points impossible here
-        if g.winner_id is not None:
-            continue
+        # Already resolved, add points if predicted correctly
+        if g.winner_id is not None and g.winner_id == predicted_team:
+            maximum_points += ROUND_POINTS[g.round] + predicted_seed
 
         # Team already eliminated
         if predicted_team not in alive_teams:
