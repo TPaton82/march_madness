@@ -54,14 +54,12 @@ def create_user_picks(user_id, user_picks):
     db.session.commit()
 
 
-def add_user_winner_pick(user_id, winner_name):
+def add_user_winner_pick(user_id, winner_id):
     """Add winner id to user profile"""
     # Find the team by name
-    team = Team.query.filter_by(name=winner_name).first()
-
     # Update the user
     user = db.session.get(User, user_id)
-    user.winner_id = team.team_id
+    user.winner_id = winner_id
     db.session.commit()
 
 
@@ -82,13 +80,13 @@ def submit_picks():
     user_id = session["user_id"]
     data = request.get_json()
     user_picks = data.get("user_picks", [])
-    winner_pick = data.get("winner_pick")
+    winner_id = data.get("winner_id")
     final_score = data.get("final_score")
 
     create_user_picks(user_id, user_picks)
 
-    if winner_pick:
-        add_user_winner_pick(user_id, winner_pick)
+    if winner_id:
+        add_user_winner_pick(user_id, winner_id)
 
     if final_score:
         try:

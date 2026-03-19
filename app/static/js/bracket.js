@@ -167,7 +167,7 @@ function AddSubmitPicksButtonListner() {
         const gameStates = document.querySelectorAll(".game-card, .championship-card, .winner-card");
 
         let userPicks = [];
-        let winnerPick = null;
+        let winnerId = null;
         
         gameStates.forEach(game => {
             teams = game.querySelectorAll(".team-row");
@@ -176,11 +176,7 @@ function AddSubmitPicksButtonListner() {
                 // We also need to get the state of the winner which doesn't have a circle.
                 // Do this first to avoid searching for circle which doesn't exist
                 if (game.id == "winner") {
-                    const winnerName = team.querySelector(".team-name").textContent
-                    console.log("Winner name:", winnerName);
-                    if (winnerName != "") {
-                        winnerPick = winnerName;
-                    }
+                    winnerId = team.dataset.teamId;
                 }
                 else {
                     const circle = team.querySelector(".circle");
@@ -201,7 +197,7 @@ function AddSubmitPicksButtonListner() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ user_picks: userPicks, winner_pick: winnerPick, final_score: finalScore })
+            body: JSON.stringify({ user_picks: userPicks, winner_id: winnerId, final_score: finalScore })
         })
         .then(res => res.json())
         .then(data => {
