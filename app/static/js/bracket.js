@@ -180,7 +180,7 @@ function AddSubmitPicksButtonListner() {
                 }
                 else {
                     const circle = team.querySelector(".circle");
-                    if (circle.classList.contains("active")) {
+                    if (circle && circle.classList.contains("active")) {
                         userPicks.push({
                             game_id: game.dataset.gameId,
                             team_id: team.dataset.teamId,
